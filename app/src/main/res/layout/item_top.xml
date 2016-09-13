@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="@dimen/item_width"
+    android:layout_height="wrap_content">
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/iv_head"
+        android:src="@drawable/top"
+        android:layout_alignParentTop="true"
+        />
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/text_layout"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:fitsSystemWindows="true"
+        android:layout_centerHorizontal="true"
+        android:layout_marginLeft="@dimen/picture_padding"
+        android:layout_marginRight="@dimen/picture_padding"
+        android:layout_marginTop="@dimen/picture_translate_distance"
+        android:clipToPadding="false"
+        cardCornerRadius="@dimen/text_corner_radius"
+        cardElevation="1dp">
+
+        <FrameLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:id="@+id/words_layout">
+
+            <com.jiebademo.utils.bubbleView.BubbleImageView
+                android:id="@+id/iv_words"
+                android:layout_width="@dimen/bubble_imageView_width"
+                android:layout_height="match_parent"
+                android:layout_centerHorizontal="true"
+                android:adjustViewBounds="true"
+                android:scaleType="centerCrop"
+                app:arrowLocation="top"
+                app:arrowPosition="@dimen/bubble_imageView_arrow_position"
+                app:arrowWidth="@dimen/bubble_imageView_arrow_width"
+                app:arrowHeight="@dimen/bubble_imageView_arrow_height"
+                app:angle="@dimen/bubble_imageView_angle"
+                android:src="@drawable/flower"/>
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center_vertical|center_horizontal"
+                android:gravity="center"
+                android:textSize="@dimen/text_size"
+                android:textColor="@color/black"
+                android:id="@+id/tv_words"
+                android:textAppearance="?android:attr/textAppearanceMedium" />
+        </FrameLayout>
+
+    </android.support.v7.widget.CardView>
+
+    <android.support.v7.widget.CardView
+        android:id="@+id/more_layout"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/text_layout"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/more_card_margin"
+        android:layout_marginLeft="@dimen/more_card_margin"
+        android:layout_marginRight="@dimen/more_card_margin"
+        android:layout_marginTop="@dimen/more_card_margin_top"
+        cardElevation="1dp"
+        android:visibility="invisible"
+        cardCornerRadius="@dimen/text_corner_radius">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="@dimen/more_card_padding">
+
+            <com.jiebademo.utils.niceSpinner
+                android:id="@+id/spinner_bottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="invisible"/>
+        </LinearLayout>
+    </android.support.v7.widget.CardView>
+</RelativeLayout>
