@@ -2,38 +2,45 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="@dimen/item_width"
-    android:layout_height="wrap_content">
+    android:layout_height="match_parent"
+    xmlns:card_view="http://schemas.android.com/tools">
     <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/iv_head"
+        android:layout_width="@dimen/head_width"
+        android:layout_height="@dimen/head_height"
+        android:id="@+id/iv_top_head"
         android:src="@drawable/top"
         android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:padding="@dimen/head_padding"
         />
 
     <android.support.v7.widget.CardView
         android:id="@+id/text_layout"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/card_width"
+        android:layout_height="@dimen/card_height"
+        android:layout_below="@+id/iv_top_head"
         android:fitsSystemWindows="true"
+        card_view:cardBackgroundColor="@android:color/transparent"
+        card_view:cardCornerRadius="@dimen/text_corner_radius"
+        card_view:cardElevation="0"
+        android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/picture_padding"
         android:layout_marginRight="@dimen/picture_padding"
         android:layout_marginTop="@dimen/picture_translate_distance"
         android:clipToPadding="false"
-        cardCornerRadius="@dimen/text_corner_radius"
-        cardElevation="1dp">
+        >
 
         <FrameLayout
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:id="@+id/words_layout">
 
-            <com.jiebademo.utils.bubbleView.BubbleImageView
+            <utils.bubbleView.BubbleImageView
                 android:id="@+id/iv_words"
-                android:layout_width="@dimen/bubble_imageView_width"
+                android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:layout_centerHorizontal="true"
+                android:layout_gravity="fill"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
                 app:arrowLocation="top"
@@ -47,6 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_vertical|center_horizontal"
                 android:gravity="center"
+                android:background="@color/transparent_white"
                 android:textSize="@dimen/text_size"
                 android:textColor="@color/black"
                 android:id="@+id/tv_words"
@@ -55,19 +63,33 @@
 
     </android.support.v7.widget.CardView>
 
+    <ImageView
+        android:layout_width="@dimen/head_width"
+        android:layout_height="@dimen/head_height"
+        android:id="@+id/iv_bottom_head"
+        android:src="@drawable/bottom"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/head_padding"
+        android:layout_centerHorizontal="true"
+
+        />
+
     <android.support.v7.widget.CardView
         android:id="@+id/more_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignBottom="@+id/text_layout"
+        android:layout_alignStart="@+id/text_layout"
+        android:layout_alignEnd="@id/text_layout"
         android:layout_below="@+id/text_layout"
-        android:layout_centerHorizontal="true"
-        android:layout_marginBottom="@dimen/more_card_margin"
         android:layout_marginLeft="@dimen/more_card_margin"
         android:layout_marginRight="@dimen/more_card_margin"
         android:layout_marginTop="@dimen/more_card_margin_top"
-        cardElevation="1dp"
+        android:layout_marginBottom="@dimen/more_card_margin"
+        card_view:cardElevation="1dp"
+        card_view:cardCornerRadius="@dimen/text_corner_radius"
         android:visibility="invisible"
-        cardCornerRadius="@dimen/text_corner_radius">
+        android:layout_centerHorizontal="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -75,7 +97,7 @@
             android:orientation="vertical"
             android:padding="@dimen/more_card_padding">
 
-            <com.jiebademo.utils.niceSpinner
+            <utils.niceSpinner.NiceSpinner
                 android:id="@+id/spinner_bottom"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

@@ -67,7 +67,7 @@ public class BubbleImageView extends ImageView {
             setMeasuredDimension(height , height);
         }
         if (height <= 0 && width > 0){
-            setMeasuredDimension(width , width);
+            setMeasuredDimension(width, width);
         }
     }
 
@@ -92,6 +92,14 @@ public class BubbleImageView extends ImageView {
         if (bubbleDrawable != null)
             bubbleDrawable.draw(canvas);
         canvas.restoreToCount(saveCount);
+    }
+
+    public void setmArrowLocation(BubbleDrawable.ArrowLocation mArrowLocation) {
+        this.mArrowLocation = mArrowLocation;
+    }
+
+    public void setmArrowPosition(float mArrowPosition) {
+        this.mArrowPosition = mArrowPosition;
     }
 
     private void setUp(int left, int right, int top, int bottom){
