@@ -20,6 +20,7 @@ import com.jiebademo.interpolators.ReverseInterpolator;
 
 import java.io.InputStream;
 
+import utils.FrameLayout.ClickableFrameLayout;
 import utils.bubbleView.BubbleDrawable;
 import utils.bubbleView.BubbleImageView;
 import utils.niceSpinner.NiceSpinner;
@@ -156,6 +157,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                         if(onItemDownFlickListener != null){
                             onItemDownFlickListener.OnDownFlick(position, holder, currentExpandedItem);
                         }
+                        break;
                 }
                 return true;
             }
@@ -272,6 +274,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         public final TextView textView;
         public final BubbleImageView textImageView;
         public final NiceSpinner keysSpinner;
+        public final ClickableFrameLayout frameLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -282,6 +285,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             moreLayout = (CardView) itemView.findViewById(R.id.more_layout);
             textView = (TextView) itemView.findViewById(R.id.tv_words);
             textImageView = (BubbleImageView) itemView.findViewById(R.id.iv_words);
+            frameLayout = (ClickableFrameLayout) itemView.findViewById(R.id.words_layout);
             keysSpinner = (NiceSpinner) itemView.findViewById(R.id.spinner_bottom);
 
         }

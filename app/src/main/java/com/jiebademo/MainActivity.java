@@ -38,9 +38,9 @@ public class MainActivity extends AppCompatActivity {
             "喝最烈的酒,去最好的医院抢救!!",
             "雪崩时，没有一片雪花觉得自己有责任~",
             "王宝强被马蓉戴绿帽子了!!!",
-            "真的想不出来要讲什么了。",
+            "此时此刻，真的想不出来要讲什么了。",
             "还要我继续编下去么，真的吗，纣王都没你狠毒。",
-            "诺贝尔获得者-诺贝尔被诺贝尔发明的炸药给炸死了，可悲啊~"
+            "诺贝尔获得者-诺贝尔被诺贝尔发明的炸药给炸死"
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,9 +66,10 @@ public class MainActivity extends AppCompatActivity {
         final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
         mainRecycleView.setLayoutManager(linearLayoutManager);
         new LinearSnapHelper().attachToRecyclerView(mainRecycleView);
-
-        final MainAdapter mainAdapter = new MainAdapter(this, items);
+        final MainAdapter mainAdapter = new MainAdapter(MainActivity.this, items);
         mainRecycleView.setAdapter(mainAdapter);
+
+
         mainAdapter.setOnItemSizeListener(new MainAdapter.OnItemSizeListener() {
             @Override
             public void onItemSize(int size) {
@@ -97,13 +98,12 @@ public class MainActivity extends AppCompatActivity {
         mainAdapter.setOnItemUpFlickListener(new MainAdapter.OnItemUpFlickListener() {
             @Override
             public void OnUpFlick(int position, MainAdapter.ViewHolder viewHolder, int currentExpandedItem) {
-                if(currentExpandedItem == position) {
-
-                }else {
+               if(currentExpandedItem != position && position != -1){
                     mainAdapter.expandItem(position, viewHolder);
                 }
             }
         });
+
         mainAdapter.setOnItemDownFlickListener(new MainAdapter.OnItemDownFlickListener() {
             @Override
             public void OnDownFlick(int position, MainAdapter.ViewHolder viewHolder, int currentExpandedItem) {
