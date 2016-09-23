@@ -8,8 +8,8 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.widget.FrameLayout;
 
-/**clickable frameLayout
- *
+/** clickable frameLayout
+ * intercept all the touch event
  * Created by lxy on 2016/9/22.
  */
 

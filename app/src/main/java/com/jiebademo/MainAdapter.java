@@ -134,8 +134,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         }
         holder.textView.setText(items[position]);
 
-        holder.textImageView.setLongClickable(true);
-        holder.textImageView.setOnClickListener(new View.OnClickListener() {
+        holder.rootView.setLongClickable(true);
+        holder.rootView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
@@ -144,19 +144,39 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             }
         });
 
-        holder.textImageView.setOnTouchListener(new View.OnTouchListener() {
+        holder.rootView.setOnTouchListener(new View.OnTouchListener() {
+
+             float mBeginPosX;
+             float mBeginPosY;
+             float mEndPosX;
+             float mEndPosY;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()){
-                    case MotionEvent.ACTION_UP:
-                        if(onItemUpFlickListener != null){
-                            onItemUpFlickListener.OnUpFlick(position, holder, currentExpandedItem);
-                        }
-                        break;
+
                     case MotionEvent.ACTION_DOWN:
-                        if(onItemDownFlickListener != null){
-                            onItemDownFlickListener.OnDownFlick(position, holder, currentExpandedItem);
+                        mBeginPosX = event.getX();
+                        mBeginPosY = event.getY();
+//                        if(onItemDownFlickListener != null){
+//                            onItemDownFlickListener.OnDownFlick(position, holder, currentExpandedItem);
+//                        }
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        mEndPosX = event.getX();
+                        mEndPosY = event.getY();
+                        break;
+
+                    case MotionEvent.ACTION_UP:
+                        if((mEndPosY - mBeginPosY) > 0 && Math.abs(mEndPosY - mBeginPosY) > 25 && Math.abs(mEndPosX - mBeginPosX) < 7){
+                            if(onItemUpFlickListener != null){
+                                onItemUpFlickListener.OnUpFlick(position, holder, currentExpandedItem);
+                            }
+                        }else if((mEndPosY - mBeginPosY) < 0 && Math.abs(mEndPosY - mBeginPosY) > 25 && Math.abs(mEndPosX - mBeginPosX) < 7){
+                            if(onItemDownFlickListener != null){
+                                onItemDownFlickListener.OnDownFlick(position, holder, currentExpandedItem);
+                            }
                         }
+
                         break;
                 }
                 return true;
@@ -274,7 +294,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         public final TextView textView;
         public final BubbleImageView textImageView;
         public final NiceSpinner keysSpinner;
-        public final ClickableFrameLayout frameLayout;
+        public final View frameLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -285,7 +305,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             moreLayout = (CardView) itemView.findViewById(R.id.more_layout);
             textView = (TextView) itemView.findViewById(R.id.tv_words);
             textImageView = (BubbleImageView) itemView.findViewById(R.id.iv_words);
-            frameLayout = (ClickableFrameLayout) itemView.findViewById(R.id.words_layout);
+            frameLayout = itemView.findViewById(R.id.words_layout);
             keysSpinner = (NiceSpinner) itemView.findViewById(R.id.spinner_bottom);
 
         }

@@ -31,7 +31,7 @@
         android:clipToPadding="false"
         >
 
-        <utils.FrameLayout.ClickableFrameLayout
+        <FrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:id="@+id/words_layout">
@@ -43,6 +43,7 @@
                 android:layout_gravity="fill"
                 android:adjustViewBounds="true"
                 android:scaleType="centerCrop"
+                android:clickable="true"
                 app:arrowLocation="top"
                 app:arrowPosition="@dimen/bubble_imageView_arrow_position"
                 app:arrowWidth="@dimen/bubble_imageView_arrow_width"
@@ -59,7 +60,7 @@
                 android:textColor="@color/black"
                 android:id="@+id/tv_words"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-        </utils.FrameLayout.ClickableFrameLayout>
+        </FrameLayout>
 
     </android.support.v7.widget.CardView>
 
