@@ -79,6 +79,11 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
      */
     private  int TYPE = -1;
 
+    private float mBeginPosX ;
+    private float mBeginPosY ;
+    private float mEndPosX ;
+    private float mEndPosY ;
+
     public MainAdapter(Context context, String[] items) {
         this.context = context;
         this.items = items;
@@ -134,8 +139,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         }
         holder.textView.setText(items[position]);
 
-        holder.rootView.setLongClickable(true);
-        holder.rootView.setOnClickListener(new View.OnClickListener() {
+        holder.frameLayout.setLongClickable(true);
+        holder.frameLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 if (onItemClickListener != null) {
@@ -146,10 +151,6 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
 
         holder.rootView.setOnTouchListener(new View.OnTouchListener() {
 
-             float mBeginPosX;
-             float mBeginPosY;
-             float mEndPosX;
-             float mEndPosY;
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 switch (event.getAction()){
@@ -167,13 +168,13 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                         break;
 
                     case MotionEvent.ACTION_UP:
-                        if((mEndPosY - mBeginPosY) > 0 && Math.abs(mEndPosY - mBeginPosY) > 25 && Math.abs(mEndPosX - mBeginPosX) < 7){
+                        if((mEndPosY - mBeginPosY) > 0 && Math.abs(mEndPosY - mBeginPosY) > 25 && Math.abs(mEndPosX - mBeginPosX) < 170){
                             if(onItemUpFlickListener != null){
-                                onItemUpFlickListener.OnUpFlick(position, holder, currentExpandedItem);
-                            }
-                        }else if((mEndPosY - mBeginPosY) < 0 && Math.abs(mEndPosY - mBeginPosY) > 25 && Math.abs(mEndPosX - mBeginPosX) < 7){
-                            if(onItemDownFlickListener != null){
                                 onItemDownFlickListener.OnDownFlick(position, holder, currentExpandedItem);
+                            }
+                        }else if((mEndPosY - mBeginPosY) < 0 && Math.abs(mEndPosY - mBeginPosY) > 25 && Math.abs(mEndPosX - mBeginPosX) < 170){
+                            if(onItemDownFlickListener != null){
+                                onItemUpFlickListener.OnUpFlick(position, holder, currentExpandedItem);
                             }
                         }
 
@@ -243,7 +244,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
      */
     public void expandItem(int position, ViewHolder viewHolder){
         if(currentExpandedItem != NONE && currentExpandedViewHolder != null){
-            collapseItem(viewHolder);
+            collapseItem(currentExpandedViewHolder);
         }
         currentExpandedItem = position;
         currentExpandedViewHolder = viewHolder;
@@ -294,7 +295,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         public final TextView textView;
         public final BubbleImageView textImageView;
         public final NiceSpinner keysSpinner;
-        public final View frameLayout;
+        public final ClickableFrameLayout frameLayout;
 
         public ViewHolder(View itemView) {
             super(itemView);
@@ -305,8 +306,9 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             moreLayout = (CardView) itemView.findViewById(R.id.more_layout);
             textView = (TextView) itemView.findViewById(R.id.tv_words);
             textImageView = (BubbleImageView) itemView.findViewById(R.id.iv_words);
-            frameLayout = itemView.findViewById(R.id.words_layout);
+            frameLayout = (ClickableFrameLayout) itemView.findViewById(R.id.words_layout);
             keysSpinner = (NiceSpinner) itemView.findViewById(R.id.spinner_bottom);
+
 
         }
     }

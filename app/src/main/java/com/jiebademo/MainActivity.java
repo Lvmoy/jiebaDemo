@@ -26,6 +26,7 @@ import org.ansj.splitWord.analysis.ToAnalysis;
 
 import java.util.Properties;
 
+import utils.LayoutManager.SpeedControllableLinearLayoutManager;
 import utils.bubbleView.BubbleTextVew;
 
 public class MainActivity extends AppCompatActivity {
@@ -36,9 +37,9 @@ public class MainActivity extends AppCompatActivity {
             "首先，我们看一个雇员信息查询系统的实例。",
             "工信部通信处女干事每月经过下属科室时都要亲口交代15口交换机等技术性器械的使用说明。",
             "作为一个Java对象，SoftReference对象除了具有保存软引用的特殊性之外。",
-            "喝最烈的酒,去最好的医院抢救!!",
-            "雪崩时，没有一片雪花觉得自己有责任~",
-            "王宝强被马蓉戴绿帽子了!!!",
+            "喝最烈的酒,去最好的医院抢救",
+            "雪崩时，没有一片雪花觉得自己有责任",
+            "王宝强被马蓉戴绿帽子了!!",
             "此时此刻，真的想不出来要讲什么了。",
             "还要我继续编下去么，真的吗，纣王都没你狠毒。",
             "诺贝尔获得者-诺贝尔被诺贝尔发明的炸药给炸死"
@@ -64,14 +65,20 @@ public class MainActivity extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         final RecyclerView mainRecycleView = (RecyclerView) findViewById(R.id.rv_main);
-        final StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
-        mLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
-        mainRecycleView.setLayoutManager(mLayoutManager);
-        final LinearLayoutManager linearLayoutManager = new LinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+//        final StaggeredGridLayoutManager mLayoutManager = new StaggeredGridLayoutManager(1, StaggeredGridLayoutManager.HORIZONTAL);
+//        mLayoutManager.setGapStrategy(StaggeredGridLayoutManager.GAP_HANDLING_MOVE_ITEMS_BETWEEN_SPANS);
+//        mainRecycleView.setLayoutManager(mLayoutManager);
+        /**
+         * set the speed of items' sliding
+         *
+         */
+        final SpeedControllableLinearLayoutManager linearLayoutManager = new SpeedControllableLinearLayoutManager(this, LinearLayoutManager.HORIZONTAL, false);
+        linearLayoutManager.setMILLISECONDS_PER_INCH(0.73f);
         mainRecycleView.setLayoutManager(linearLayoutManager);
         new LinearSnapHelper().attachToRecyclerView(mainRecycleView);
         final MainAdapter mainAdapter = new MainAdapter(MainActivity.this, items);
         mainRecycleView.setAdapter(mainAdapter);
+   //     mainRecycleView.fling()
 
 
         mainAdapter.setOnItemSizeListener(new MainAdapter.OnItemSizeListener() {
@@ -103,6 +110,10 @@ public class MainActivity extends AppCompatActivity {
             @Override
             public void OnUpFlick(int position, MainAdapter.ViewHolder viewHolder, int currentExpandedItem) {
                if(currentExpandedItem != position && position != -1){
+                   final int currentPosition = (linearLayoutManager.findFirstVisibleItemPosition() + linearLayoutManager.findLastVisibleItemPosition()) / 2;
+                   if(position != currentPosition){
+                       mainRecycleView.smoothScrollToPosition(position);
+                   }
                     mainAdapter.expandItem(position, viewHolder);
                 }
             }

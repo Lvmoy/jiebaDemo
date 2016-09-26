@@ -29,11 +29,13 @@
         android:layout_marginRight="@dimen/picture_padding"
         android:layout_marginTop="@dimen/picture_translate_distance"
         android:clipToPadding="false"
+        android:clickable="false"
         >
 
-        <FrameLayout
+        <utils.FrameLayout.ClickableFrameLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:clickable="true"
             android:id="@+id/words_layout">
 
             <utils.bubbleView.BubbleImageView
@@ -60,7 +62,7 @@
                 android:textColor="@color/black"
                 android:id="@+id/tv_words"
                 android:textAppearance="?android:attr/textAppearanceMedium" />
-        </FrameLayout>
+        </utils.FrameLayout.ClickableFrameLayout>
 
     </android.support.v7.widget.CardView>
 
