@@ -35,14 +35,14 @@ public class MainActivity extends AppCompatActivity {
             "若一个对象不被任何变量引用，那么程序就无法再使用这个对象。",
             "为什么需要使用软引用?",
             "首先，我们看一个雇员信息查询系统的实例。",
-            "工信部通信处女干事每月经过下属科室时都要亲口交代15口交换机等技术性器械的使用说明。",
+            "工信处女干事每月经过下属科室时都要亲口交代15口交换机等技术性器械的使用说明。",
             "作为一个Java对象，SoftReference对象除了具有保存软引用的特殊性之外。",
             "喝最烈的酒,去最好的医院抢救",
             "雪崩时，没有一片雪花觉得自己有责任",
             "王宝强被马蓉戴绿帽子了!!",
             "此时此刻，真的想不出来要讲什么了。",
-            "还要我继续编下去么，真的吗，纣王都没你狠毒。",
-            "诺贝尔获得者-诺贝尔被诺贝尔发明的炸药给炸死"
+            "我们中出了一个叛徒",
+            "诺贝尔获得者-诺贝尔被诺贝尔发明的炸药给炸死了"
     };
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -100,9 +100,10 @@ public class MainActivity extends AppCompatActivity {
                     mainRecycleView.smoothScrollToPosition(position);
                 }else if(mainAdapter.isCollapsed(position)){
                     mainAdapter.expandItem(position, viewHolder);
-                }else {
-                    mainAdapter.collapseItem(viewHolder);
                 }
+//                else {
+//                    mainAdapter.collapseItem(viewHolder);
+//                }
             }
         });
 

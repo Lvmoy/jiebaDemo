@@ -78,6 +78,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
      * 1 是对方来消息，在上方    0是自己发送的消息，在下方
      */
     private  int TYPE = -1;
+    private boolean isFingerSliding = false;
 
     private float mBeginPosX ;
     private float mBeginPosY ;
@@ -149,7 +150,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             }
         });
 
-        holder.rootView.setOnTouchListener(new View.OnTouchListener() {
+        holder.frameLayout.setOnTouchListener(new View.OnTouchListener() {
 
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -171,16 +172,25 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
                         if((mEndPosY - mBeginPosY) > 0 && Math.abs(mEndPosY - mBeginPosY) > 25 && Math.abs(mEndPosX - mBeginPosX) < 170){
                             if(onItemUpFlickListener != null){
                                 onItemDownFlickListener.OnDownFlick(position, holder, currentExpandedItem);
+                                isFingerSliding = true;
                             }
                         }else if((mEndPosY - mBeginPosY) < 0 && Math.abs(mEndPosY - mBeginPosY) > 25 && Math.abs(mEndPosX - mBeginPosX) < 170){
                             if(onItemDownFlickListener != null){
                                 onItemUpFlickListener.OnUpFlick(position, holder, currentExpandedItem);
+                                isFingerSliding = true;
                             }
                         }
 
                         break;
                 }
-                return true;
+                if(isFingerSliding){
+                    isFingerSliding = false;
+
+                    return true;
+                }
+                else{
+                    return false;
+                }
             }
         });
 
@@ -243,9 +253,12 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
      * @param viewHolder Item's view holder.
      */
     public void expandItem(int position, ViewHolder viewHolder){
-        if(currentExpandedItem != NONE && currentExpandedViewHolder != null){
+        if(currentExpandedItem == position && currentExpandedItem != NONE && currentExpandedViewHolder != null){
+            return;
+        }else if(currentExpandedItem != NONE && currentExpandedViewHolder != null){
             collapseItem(currentExpandedViewHolder);
         }
+
         currentExpandedItem = position;
         currentExpandedViewHolder = viewHolder;
 
