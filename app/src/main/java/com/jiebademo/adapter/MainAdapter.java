@@ -1,4 +1,4 @@
-package com.jiebademo;
+package com.jiebademo.adapter;
 
 import android.content.Context;
 import android.graphics.Color;
@@ -12,13 +12,11 @@ import android.view.ViewTreeObserver;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.AdapterView;
-import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.jiebademo.R;
 import com.jiebademo.interpolators.ReverseInterpolator;
-
-import java.io.InputStream;
 
 import utils.FrameLayout.ClickableFrameLayout;
 import utils.bubbleView.BubbleDrawable;

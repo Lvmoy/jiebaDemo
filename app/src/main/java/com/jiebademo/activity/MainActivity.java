@@ -1,35 +1,23 @@
-package com.jiebademo;
+package com.jiebademo.activity;
 
-import android.app.ActionBar;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
-import android.support.v7.widget.StaggeredGridLayoutManager;
-import android.support.v7.widget.Toolbar;
-import android.text.TextUtils;
 import android.view.View;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
-import android.widget.EditText;
-import android.widget.TextView;
-import org.ansj.splitWord.analysis.NlpAnalysis;
-import org.ansj.splitWord.analysis.ToAnalysis;
 
-import java.util.Properties;
+import com.jiebademo.R;
+import com.jiebademo.adapter.MainAdapter;
 
 import utils.LayoutManager.SpeedControllableLinearLayoutManager;
-import utils.bubbleView.BubbleTextVew;
 
 public class MainActivity extends AppCompatActivity {
+
 
     private static final String[] items = {
             "若一个对象不被任何变量引用，那么程序就无法再使用这个对象。",
@@ -100,6 +88,7 @@ public class MainActivity extends AppCompatActivity {
                     mainRecycleView.smoothScrollToPosition(position);
                 }else if(mainAdapter.isCollapsed(position)){
                     mainAdapter.expandItem(position, viewHolder);
+                    handSetSegResult(position, viewHolder.textView.getText().toString());
                 }
 //                else {
 //                    mainAdapter.collapseItem(viewHolder);
@@ -148,6 +137,10 @@ public class MainActivity extends AppCompatActivity {
 //                    }
 //                }
 //        });
+    }
+
+    private void handSetSegResult(int position, String diaString) {
+
     }
 
 }
