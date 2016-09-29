@@ -3,7 +3,7 @@ package com.jiebademo.data;
 import android.support.annotation.NonNull;
 
 /**
- * 单个分词结果Bean
+ * 单个分词word Bean
  * Created by lxy on 2016/9/28.
  */
 

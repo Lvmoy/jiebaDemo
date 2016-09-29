@@ -7,17 +7,28 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.LinearSnapHelper;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 
 import com.jiebademo.R;
 import com.jiebademo.adapter.MainAdapter;
+import com.jiebademo.data.SegResultBean;
+import com.jiebademo.data.SegResultData;
+import com.jiebademo.data.WordTypes;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 import utils.LayoutManager.SpeedControllableLinearLayoutManager;
 
+
 public class MainActivity extends AppCompatActivity {
 
+    private List<SegResultBean> segResultBeenList = new ArrayList<>();
+    private List<SegResultData> segResultDataList = new ArrayList<>();
 
     private static final String[] items = {
             "若一个对象不被任何变量引用，那么程序就无法再使用这个对象。",
@@ -87,8 +98,20 @@ public class MainActivity extends AppCompatActivity {
                 if(position != currentPosition){
                     mainRecycleView.smoothScrollToPosition(position);
                 }else if(mainAdapter.isCollapsed(position)){
+                    //设置个数据bean
+                    handySetSegResult(position, viewHolder.textView.getText().toString());
+                    if(segResultDataList != null && segResultDataList.get(position) != null){
+                        if(! segResultDataList.get(position).isSent()){
+                            List<String> spinnerString = new ArrayList<String>();
+                            for(int i= 0; i < segResultDataList.get(position).getList().size(); i++){
+                                spinnerString.add(segResultDataList.get(position).getList().get(i).getWord());
+                            }
+                            viewHolder.keysSpinner.attachDataSource(spinnerString);
+                        }
+                    }
                     mainAdapter.expandItem(position, viewHolder);
-                    handSetSegResult(position, viewHolder.textView.getText().toString());
+
+                    viewHolder.keysSpinner.setVisibility(View.VISIBLE);
                 }
 //                else {
 //                    mainAdapter.collapseItem(viewHolder);
@@ -139,8 +162,30 @@ public class MainActivity extends AppCompatActivity {
 //        });
     }
 
-    private void handSetSegResult(int position, String diaString) {
-
+    private void handySetSegResult(int position, String diaString) {
+        SegResultData tempSegData = new SegResultData();
+        tempSegData.setDiaId(position + 1);
+        tempSegData.setDiaText(diaString);
+        if(position % 2 == 1){
+            tempSegData.setUiId(1);
+        }else {
+            tempSegData.setUiId(0);
+        }
+        if(!TextUtils.isEmpty(diaString)) {
+            int max = diaString.length();
+            for (int i = 0; i < 3; i++) {
+                SegResultBean tempSegBean = new SegResultBean();
+                Random random = new Random();
+                int startPosition = random.nextInt(max - 5);
+                tempSegBean.setWord(diaString.substring(startPosition, startPosition + 3));
+                tempSegBean.setType(WordTypes.K);
+                tempSegBean.setDiaID(position + 1);
+                tempSegBean.setId(i);
+                segResultBeenList.add(tempSegBean);
+            }
+            tempSegData.setList(segResultBeenList);
+        }
+        segResultDataList.add(tempSegData);
     }
 
 }
